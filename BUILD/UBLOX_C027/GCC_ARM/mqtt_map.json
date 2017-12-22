@@ -1,0 +1,168 @@
+[
+    {
+        "module": "MQTT/MQTTPacket", 
+        "size": {
+            ".data": 0, 
+            ".bss": 4, 
+            ".text": 1512
+        }
+    }, 
+    {
+        "module": "[fill]", 
+        "size": {
+            ".data": 7, 
+            ".bss": 27, 
+            ".text": 754
+        }
+    }, 
+    {
+        "module": "[lib]/c.a", 
+        "size": {
+            ".data": 2472, 
+            ".bss": 89, 
+            ".text": 47229
+        }
+    }, 
+    {
+        "module": "[lib]/gcc.a", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 7968
+        }
+    }, 
+    {
+        "module": "[lib]/misc", 
+        "size": {
+            ".data": 12, 
+            ".bss": 28, 
+            ".text": 252
+        }
+    }, 
+    {
+        "module": "[lib]/nosys.a", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 32
+        }
+    }, 
+    {
+        "module": "[lib]/stdc++.a", 
+        "size": {
+            ".data": 40, 
+            ".bss": 204, 
+            ".text": 7852
+        }
+    }, 
+    {
+        "module": "main.o", 
+        "size": {
+            ".data": 4, 
+            ".bss": 2248, 
+            ".text": 7460
+        }
+    }, 
+    {
+        "module": "mbed-http/http_parser", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 11120
+        }
+    }, 
+    {
+        "module": "mbed-os/drivers", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 3397
+        }
+    }, 
+    {
+        "module": "mbed-os/events", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 16
+        }
+    }, 
+    {
+        "module": "mbed-os/features", 
+        "size": {
+            ".data": 97, 
+            ".bss": 116, 
+            ".text": 5597
+        }
+    }, 
+    {
+        "module": "mbed-os/hal", 
+        "size": {
+            ".data": 4, 
+            ".bss": 66, 
+            ".text": 1713
+        }
+    }, 
+    {
+        "module": "mbed-os/platform", 
+        "size": {
+            ".data": 4, 
+            ".bss": 272, 
+            ".text": 3019
+        }
+    }, 
+    {
+        "module": "mbed-os/rtos", 
+        "size": {
+            ".data": 168, 
+            ".bss": 5989, 
+            ".text": 12227
+        }
+    }, 
+    {
+        "module": "mbed-os/targets", 
+        "size": {
+            ".data": 4, 
+            ".bss": 245, 
+            ".text": 4118
+        }
+    }, 
+    {
+        "module": "ublox-at-cellular-interface-ext/UbloxATCellularInterfaceExt.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 4529
+        }
+    }, 
+    {
+        "module": "ublox-at-cellular-interface-ext/ublox-at-cellular-interface", 
+        "size": {
+            ".data": 0, 
+            ".bss": 4, 
+            ".text": 7307
+        }
+    }, 
+    {
+        "module": "ublox-cellular-base/UbloxCellularBase.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 4275
+        }
+    }, 
+    {
+        "module": "ublox-cellular-driver-gen/UbloxCellularDriverGen.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 3703
+        }
+    }, 
+    {
+        "summary": {
+            "static_ram": 12104, 
+            "total_flash": 136892
+        }
+    }
+]
