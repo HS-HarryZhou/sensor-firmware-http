@@ -1,18 +1,10 @@
 [
     {
-        "module": "MQTT/MQTTPacket", 
-        "size": {
-            ".data": 0, 
-            ".bss": 4, 
-            ".text": 1512
-        }
-    }, 
-    {
         "module": "[fill]", 
         "size": {
             ".data": 7, 
             ".bss": 27, 
-            ".text": 754
+            ".text": 769
         }
     }, 
     {
@@ -20,7 +12,7 @@
         "size": {
             ".data": 2472, 
             ".bss": 89, 
-            ".text": 47229
+            ".text": 47189
         }
     }, 
     {
@@ -52,15 +44,23 @@
         "size": {
             ".data": 40, 
             ".bss": 204, 
-            ".text": 7852
+            ".text": 8542
+        }
+    }, 
+    {
+        "module": "jsmn/jsmn.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 906
         }
     }, 
     {
         "module": "main.o", 
         "size": {
-            ".data": 4, 
-            ".bss": 2248, 
-            ".text": 7460
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 92
         }
     }, 
     {
@@ -68,7 +68,7 @@
         "size": {
             ".data": 0, 
             ".bss": 0, 
-            ".text": 11120
+            ".text": 11135
         }
     }, 
     {
@@ -90,9 +90,9 @@
     {
         "module": "mbed-os/features", 
         "size": {
-            ".data": 97, 
-            ".bss": 116, 
-            ".text": 5597
+            ".data": 93, 
+            ".bss": 100, 
+            ".text": 3968
         }
     }, 
     {
@@ -128,6 +128,110 @@
         }
     }, 
     {
+        "module": "spiioBoard/SpiioBoard.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 114
+        }
+    }, 
+    {
+        "module": "spiioBoard/batteryReader.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 8
+        }
+    }, 
+    {
+        "module": "spiioBoard/lightReader.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 8
+        }
+    }, 
+    {
+        "module": "spiioBoard/moistureReader.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 8
+        }
+    }, 
+    {
+        "module": "spiioBoard/tempReader.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 8
+        }
+    }, 
+    {
+        "module": "spiioBoard/timeReader.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 8
+        }
+    }, 
+    {
+        "module": "spiioClient/SpiioClient.o", 
+        "size": {
+            ".data": 4, 
+            ".bss": 2244, 
+            ".text": 5219
+        }
+    }, 
+    {
+        "module": "spiioClient/Token.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 73
+        }
+    }, 
+    {
+        "module": "spiioCommon/BoardConfig.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 2
+        }
+    }, 
+    {
+        "module": "spiioCommon/Config.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 146
+        }
+    }, 
+    {
+        "module": "spiioCommon/Device.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 567
+        }
+    }, 
+    {
+        "module": "spiioCommon/Message.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 688
+        }
+    }, 
+    {
+        "module": "spiioCommon/MessageStore.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 928
+        }
+    }, 
+    {
         "module": "ublox-at-cellular-interface-ext/UbloxATCellularInterfaceExt.o", 
         "size": {
             ".data": 0, 
@@ -140,7 +244,7 @@
         "size": {
             ".data": 0, 
             ".bss": 4, 
-            ".text": 7307
+            ".text": 8896
         }
     }, 
     {
@@ -161,8 +265,8 @@
     }, 
     {
         "summary": {
-            "static_ram": 12104, 
-            "total_flash": 136892
+            "static_ram": 12076, 
+            "total_flash": 137331
         }
     }
 ]

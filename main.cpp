@@ -1,165 +1,76 @@
 /*******************************************************************************
- * Copyright (c) 2014, 2015 IBM Corp.
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * and Eclipse Distribution License v1.0 which accompany this distribution.
- *
- * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at
- *   http://www.eclipse.org/org/documents/edl-v10.php.
- *
+* Copyright (C) 2017, 20017 Spiio, Inc - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Jens-Ole Graulund <jensole@spiio.com>, December 2017
+
  * Contributors:
- *    Ian Craggs - initial API and implementation and/or initial documentation
- *    Ian Craggs - make sure QoS2 processing works, and add device headers
+ *    Jens-Ole Graulund - initial API and implementation
  *******************************************************************************/
 
 /**
-  This is a sample program to illustrate the use of the MQTT Client library
-  on the mbed platform.  The Client class requires two classes which mediate
-  access to system interfaces for networking and timing.  As long as these two
-  classes provide the required public programming interfaces, it does not matter
-  what facilities they use underneath. In this program, they use the mbed
-  system libraries.
+  This is a prototype firmware to illustrate interaction with SPIIO MQTT and HTTP Client services
+  on the mbed platform.  
 
+  Additional libraries used:
+  mbed-http: https://os.mbed.com/teams/sandbox/code/mbed-http/
+  JSON parser : https://os.mbed.com/users/yoonghm/code/jsmn/
+  u-blox easy-connect: https://os.mbed.com/teams/ublox/code/easy-connect/#9da11cf868d9 included in the HelloMATT project
+  (WakeUp: https://os.mbed.com/users/Sissors/code/WakeUp/)
+
+  Other Links of interest:
+    Sleep in Mbed OS5.6: https://os.mbed.com/docs/v5.6/reference/sleep-manager.html
+    time    - https://os.mbed.com/docs/v5.6/reference/time.html
+    assert  - https://os.mbed.com/docs/v5.6/reference/assert.html
+    ssl/tls - https://os.mbed.com/docs/v5.6/reference/tls.html
+            - https://tls.mbed.org/discussions/generic/minimal-tls-configuration-for-https-connections
+
+  This project depends on mbed-http. Another options is to use the u-blox cellular interface.
+    u-blox cellular http - https://os.mbed.com/teams/ublox/code/example-ublox-at-cellular-interface-ext/file/e1b6cd53333f/main.cpp/            
  */
 
-// change this to 0 to output messages to serial instead of LCD
-#define USE_LCD 0
+#include "SpiioCommon//Message.h"
+#include "SpiioCommon/Config.h"
+#include "SpiioCommon/Device.h"
+#include "spiioBoard/SpiioBoard.h"
+#include "spiioClient/SpiioClient.h"
 
-#if USE_LCD
-#include "C12832.h"
-
-// the actual pins are defined in mbed_app.json and can be overridden per target
-C12832 lcd(LCD_MOSI, LCD_SCK, LCD_MISO, LCD_A0, LCD_NCS);
-
-#define logMessage \
-  lcd.cls();       \
-  lcd.printf
-
-#else
-
-#define logMessage printf
-
-#endif
-
-#define MQTTCLIENT_QOS2 1
-
-#include "easy-connect.h"
-#include "http_request.h"
-#include "MQTTNetwork.h"
-#include "MQTTmbed.h"
-#include "MQTTClient.h"
-
-int arrivedcount = 0;
-
-void messageArrived(MQTT::MessageData &md)
+using namespace std;
+int main(void)
 {
-  MQTT::Message &message = md.message;
-  logMessage("Message arrived: qos %d, retained %d, dup %d, packetid %d\r\n", message.qos, message.retained, message.dup, message.id);
-  logMessage("Payload %.*s\r\n", message.payloadlen, (char *)message.payload);
-  ++arrivedcount;
-}
 
-void dump_response(HttpResponse *res)
-{
-  printf("Status: %d - %s\n", res->get_status_code(), res->get_status_message().c_str());
+    // Create configuration objects. Configuration objects responsiblity is to create the environment to the processing objects.
+    // Configuration values can be static, derived fom MCU information or supplied during factory flash of firmware.
+    const SPIIO::Device theDevice;
+    const SPIIO::Config spiioNetwork;
+    const SPIIO::BoardConfig boardConfig;
 
-  printf("Headers:\n");
-  for (size_t ix = 0; ix < res->get_headers_length(); ix++)
-  {
-    printf("\t%s: %s\n", res->get_headers_fields()[ix]->c_str(), res->get_headers_values()[ix]->c_str());
-  }
-  printf("\nBody (%d bytes):\n\n%s\n", res->get_body_length(), res->get_body_as_string().c_str());
-}
+    // Create board to handle MCU and sensor interface
+    SPIIO::SpiioBoard board(boardConfig);
 
-int main(int argc, char *argv[])
-{
-  float version = 0.6;
-  char *topic = "mbed-sample";
+    // Create Spiio service API client with:
+    // - Spiio server config to know how to connect to the Spiio services.
+    // - Device information to identify the sensor to the spiio service.
+    SPIIO::SpiioClient spiioClient(spiioNetwork, theDevice);
 
-  logMessage("HelloMQTT: version is %.2f\r\n", version);
+    // Create message store to hold meassurements
+    SPIIO::MessageStore store;
+    
+    while (true) {
 
-  while (true)
-  {
+        // Get mesasurements from the Board.
+        SPIIO::Message message = board.getMeasurement();
 
-    NetworkInterface *network = easy_connect(true);
-    if (!network)
-    {
-      logMessage("HelloMQTT: No network %.2f\r\n", version);
-      return -1;
+        // Add the measurement to the message store.
+        store.add(message);
+
+        // Publish message in the store.
+        // Spiio client takes care of token renewal/security
+        // and decides whether to send or keep messages in the store dependent on the MEASUREMENT_COLLECTION_COUNT global paramenter.
+        spiioClient.publish(store);
+
+        // Set the board in sleep mode. Sleep period is defined by global parameter MEASUREMENT_COLLECTION_INTERVAL.
+        // TODO pass parameter with sleep period. Can indirectly be changed in config in Publish.
+        board.hibernate();
     }
-
-    logMessage("HelloMQTT: GOT network %.2f\r\n", version);
-
-    // Do a GET request to httpbin.org
-    {
-      // By default the body is automatically parsed and stored in a buffer, this is memory heavy.
-      // To receive chunked response, pass in a callback as last parameter to the constructor.
-      HttpRequest *get_req = new HttpRequest(network, HTTP_GET, "http://httpbin.org/ip");
-
-      HttpResponse *get_res = get_req->send();
-      if (!get_res)
-      {
-        printf("HttpRequest failed (error code %d)\n", get_req->get_error());
-        return 1;
-      }
-
-      printf("\n----- HTTP GET response -----\n");
-      dump_response(get_res);
-
-      delete get_req;
-    }
-
-    MQTTNetwork mqttNetwork(network);
-
-    MQTT::Client<MQTTNetwork, Countdown, 500> client = MQTT::Client<MQTTNetwork, Countdown, 500>(mqttNetwork);
-
-    const char *hostname = "mqtt.staging.spiio.com";
-    int port = 1883;
-
-    logMessage("Connecting to %s:%d\r\n", hostname, port);
-    int rc = mqttNetwork.connect(hostname, port);
-    if (rc != 0)
-      logMessage("rc from TCP connect is %d\r\n", rc);
-
-    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
-    data.MQTTVersion = 4;
-    data.clientID.cstring = "mbed-sample";
-    data.username.cstring = "0c2a690d0867@jwt";
-    //data.password.cstring = "0c2a690d0867";
-    data.password.cstring = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXV0aG4uc3BpaW8uY29tIiwic3ViIjoiZGV2aWNlLzBjMmE2OTBkMDg2NyIsImp0aSI6IjE5ZTNjYzkyLWU4MzUtNGM4ZS1iZTM2LTQ3NzQ1MjEwZDk3MyIsImlhdCI6MTUxMjU4MTcwMCwiZXhwIjoxNzM1Njg5NjAwfQ.qmItTcAcKc7AV5kLNzXYCWgVmvX1lRhSCbWF3Bf7POU";
-
-    if ((rc = client.connect(data)) != 0)
-      logMessage("rc from MQTT connect is %d\r\n", rc);
-
-    MQTT::Message message;
-
-    // QoS 1
-    char buf[100];
-    sprintf(buf, "Hello World!  QoS 0 message from app version %f\r\n", version);
-
-    message.qos = MQTT::QOS1;
-    message.retained = false;
-    message.dup = false;
-    message.payload = (void *)buf;
-    message.payloadlen = strlen(buf) + 1;
-    client.publish(topic, message);
-
-    if ((rc = client.disconnect()) != 0)
-      logMessage("rc from disconnect was %d\r\n", rc);
-
-    mqttNetwork.disconnect();
-
-    logMessage("Version %.2f: finish %d msgs\r\n", version, arrivedcount);
-
-    network->disconnect();
-
-    delete network;
-
-    wait(30.0);
-  }
-
-  return 0;
 }

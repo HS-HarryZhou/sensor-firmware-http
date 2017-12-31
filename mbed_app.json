@@ -33,17 +33,10 @@
   },
   "target_overrides": {
     "*": {
-      "target.features_add": ["LWIP", "COMMON_PAL"],
       "platform.stdio-baud-rate": 115200,
       "platform.stdio-convert-newlines": true,
-      "lwip.ipv4-enabled": true,
-      "lwip.ipv6-enabled": false,
       "mbed-trace.enable": 0,
-      "mbed-http.http-buffer-size": 2048         
-    },
-    "UBLOX_C027": {
-      "lwip.ppp-enabled": true,
-      "ppp-cell-iface.apn-lookup": true
+      "mbed-http.http-buffer-size": 2048
     }
   }
 }

@@ -1,6 +1,8 @@
 BUILD/UBLOX_C027/GCC_ARM/./main.o: main.cpp \
- BUILD/UBLOX_C027/GCC_ARM/mbed_config.h easy-connect/easy-connect.h \
- mbed-os/mbed.h mbed-os/rtos/rtos.h \
+ BUILD/UBLOX_C027/GCC_ARM/mbed_config.h SpiioCommon//Message.h \
+ SpiioCommon/Config.h SpiioCommon/Device.h spiioBoard/SpiioBoard.h \
+ SpiioCommon/BoardConfig.h SpiioCommon/Message.h \
+ spiioClient/SpiioClient.h mbed-os/mbed.h mbed-os/rtos/rtos.h \
  mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_lib.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_core_c.h \
@@ -116,19 +118,6 @@ BUILD/UBLOX_C027/GCC_ARM/./main.o: main.cpp \
  mbed-os/platform/FileSystemHandle.h mbed-os/platform/FileHandle.h \
  mbed-os/platform/DirHandle.h mbed-os/platform/CriticalSectionLock.h \
  mbed-os/platform/DeepSleepLock.h mbed-os/platform/Callback.h \
- mbed-os/platform/FunctionPointer.h \
- ublox-at-cellular-interface-ext/UbloxATCellularInterfaceExt.h \
- ublox-at-cellular-interface-ext/ublox-at-cellular-interface/UbloxATCellularInterface.h \
- ublox-cellular-base/UbloxCellularBase.h mbed-os/platform/ATCmdParser.h \
- mbed-os/features/netsocket/CellularBase.h \
- mbed-os/features/netsocket/NetworkStack.h \
- ublox-cellular-driver-gen/UbloxCellularDriverGen.h \
- mbed-http/source/http_request.h mbed-http/http_parser/http_parser.h \
- mbed-http/source/http_response.h mbed-http/source/http_request_builder.h \
- mbed-http/source/http_parsed_url.h \
- mbed-http/source/http_request_parser.h MQTTNetwork.h \
- mbed-os/features/netsocket/NetworkInterface.h MQTT/MQTTmbed.h \
- MQTT/MQTTClient.h MQTT/FP/FP.h MQTT/MQTTPacket/MQTTPacket.h \
- MQTT/MQTTPacket/MQTTConnect.h MQTT/MQTTPacket/MQTTPublish.h \
- MQTT/MQTTPacket/MQTTSubscribe.h MQTT/MQTTPacket/MQTTUnsubscribe.h \
- MQTT/MQTTLogging.h
+ mbed-os/platform/FunctionPointer.h SpiioCommon/Config.h \
+ SpiioCommon/Device.h SpiioCommon/MessageStore.h spiioCommon/Message.h \
+ SpiioCommon/SpiioUtils.h spiioClient/Token.h

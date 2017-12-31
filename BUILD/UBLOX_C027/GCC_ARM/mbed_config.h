@@ -24,7 +24,7 @@
 // Configuration parameters
 #define MBED_CONF_UBLOX_CELL_AT_PARSER_TIMEOUT               8000           // set by library:ublox-cell
 #define MBED_CONF_UBLOX_CELL_AT_PARSER_BUFFER_SIZE           256            // set by library:ublox-cell
-#define MBED_CONF_LWIP_IPV4_ENABLED                          1              // set by application[*]
+#define MBED_CONF_LWIP_IPV4_ENABLED                          1              // set by library:lwip
 #define MBED_CONF_LWIP_DEFAULT_THREAD_STACKSIZE              512            // set by library:lwip
 #define MBED_CONF_LWIP_IP_VER_PREF                           4              // set by library:lwip
 #define MBED_CONF_EVENTS_PRESENT                             1              // set by library:events
@@ -41,7 +41,7 @@
 #define MBED_CONF_LWIP_TCP_ENABLED                           1              // set by library:lwip
 #define MBED_CONF_PPP_CELL_IFACE_AT_PARSER_TIMEOUT           8000           // set by library:ppp-cell-iface
 #define MBED_CONF_EVENTS_SHARED_STACKSIZE                    1024           // set by library:events
-#define NSAPI_PPP_AVAILABLE                                  1              // set by application[UBLOX_C027]
+#define NSAPI_PPP_AVAILABLE                                  0              // set by library:lwip
 #define MBED_CONF_LWIP_UDP_SOCKET_MAX                        4              // set by library:lwip
 #define MBED_LFS_LOOKAHEAD                                   512            // set by library:littlefs
 #define MBED_CONF_PLATFORM_STDIO_CONVERT_NEWLINES            1              // set by application[*]
@@ -55,7 +55,7 @@
 #define MODEM_ON_BOARD_UART                                  1              // set by target:UBLOX_C027
 #define MBED_CONF_EVENTS_SHARED_DISPATCH_FROM_APPLICATION    0              // set by library:events
 #define MBED_CONF_LWIP_USE_MBED_TRACE                        0              // set by library:lwip
-#define MBED_CONF_PPP_CELL_IFACE_APN_LOOKUP                  1              // set by application[UBLOX_C027]
+#define MBED_CONF_PPP_CELL_IFACE_APN_LOOKUP                  0              // set by library:ppp-cell-iface
 #define MBED_CONF_LWIP_TCPIP_THREAD_STACKSIZE                1200           // set by library:lwip
 #define MBED_LFS_PROG_SIZE                                   64             // set by library:littlefs
 #define MBED_CONF_LWIP_PPP_THREAD_STACKSIZE                  768            // set by library:lwip
@@ -67,7 +67,7 @@
 #define MBED_CONF_PLATFORM_STDIO_FLUSH_AT_EXIT               1              // set by library:platform
 #define MODEM_ON_BOARD                                       1              // set by target:UBLOX_C027
 #define MBED_CONF_PLATFORM_STDIO_BAUD_RATE                   115200         // set by application[*]
-#define MBED_CONF_LWIP_IPV6_ENABLED                          0              // set by application[*]
+#define MBED_CONF_LWIP_IPV6_ENABLED                          0              // set by library:lwip
 #define MBED_CONF_EVENTS_SHARED_HIGHPRIO_STACKSIZE           1024           // set by library:events
 #define HTTP_RECEIVE_BUFFER_SIZE                             2048           // set by application[*]
 #define MBED_CONF_APP_SOCK_TYPE                              TCP            // set by application
