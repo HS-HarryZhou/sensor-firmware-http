@@ -9,8 +9,7 @@
  *******************************************************************************/
 
 /**
-  This is a prototype firmware to illustrate interaction with SPIIO MQTT and HTTP Client services
-  on the mbed platform.  
+  This is prototype firmware to illustrate mbed client interaction with SPIIO HTTP services.
 
   Additional libraries used:
   mbed-http: https://os.mbed.com/teams/sandbox/code/mbed-http/
@@ -45,6 +44,7 @@
 #include "spiioClient/SpiioClient.h"
 
 using namespace std;
+
 int main(void)
 {
 
@@ -64,7 +64,7 @@ int main(void)
 
     // Create message store to hold meassurements
     SPIIO::MessageStore store;
-    
+
     while (true) {
 
         // Get mesasurements from the Board.
@@ -75,11 +75,12 @@ int main(void)
 
         // Publish message in the store.
         // Spiio client takes care of token renewal/security
-        // and decides whether to send or keep messages in the store dependent on the MEASUREMENT_COLLECTION_COUNT global paramenter.
+        // and decides whether to send or keep messages in the store dependent on the MEASUREMENT_COLLECTION_COUNT paramenter.
         spiioClient.publish(store);
 
         // Set the board in sleep mode. Sleep period is defined by global parameter MEASUREMENT_COLLECTION_INTERVAL.
-        // TODO pass parameter with sleep period. Can indirectly be changed in config in Publish.
+        // TODO pass parameter with sleep period. May be indirectly changed in config in SpiioClient::Publish.
+        // when receiving response from readings post.
         board.hibernate();
     }
 }
