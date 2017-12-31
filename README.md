@@ -52,7 +52,7 @@ The sim card configuration is done in the file `mbed-config.h`. In most cases yo
 Drag an drop the project `bin` file to your connected boards `DAPLINK` mounted device.
 
 Connect a terminal program to the serial interface of the development board to see log messages.
-You can download [Coolterm](http://freeware.the-meiers.org/) or choose whatever you like or already have.
+You can download [CoolTerm](http://freeware.the-meiers.org/) or choose whatever you like or already have.
 
 # Libraries
 
