@@ -15,7 +15,16 @@
   Additional libraries used:
   mbed-http: https://os.mbed.com/teams/sandbox/code/mbed-http/
   JSON parser : https://os.mbed.com/users/yoonghm/code/jsmn/
-  u-blox easy-connect: https://os.mbed.com/teams/ublox/code/easy-connect/#9da11cf868d9 included in the HelloMATT project
+  u-blox easy-connect: https://os.mbed.com/teams/ublox/code/easy-connect/#9da11cf868d9 
+  u-blox cellular moduke interfaces: 
+        https://os.mbed.com/teams/ublox/code/ublox-at-cellular-interface-ext/
+        https://os.mbed.com/teams/ublox/code/ublox-cellular-base/
+        https://os.mbed.com/teams/ublox/code/ublox-cellular-driver-gen/
+        https://os.mbed.com/teams/ublox/code/ublox-ppp-cellular-interface/
+
+  base64 encoding code grabbed from:
+        https://github.com/vpcola/MQTTGateway/blob/master/DownloadFile.cpp
+              
   (WakeUp: https://os.mbed.com/users/Sissors/code/WakeUp/)
 
   Other Links of interest:
