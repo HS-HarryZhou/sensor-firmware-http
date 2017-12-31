@@ -79,6 +79,9 @@ int SPIIO::SpiioClient::publish(SPIIO::MessageStore& store)
     // TODO debug mode
     dump_response(get_res);
 
+    // TODO parse response
+    // parseReadingsResponse(response);
+
     // Readings delivered - empty readings in the message store
     store.reset();
     body = "";
