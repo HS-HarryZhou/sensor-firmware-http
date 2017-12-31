@@ -67,9 +67,7 @@ The follwoing libraries is added to provide HTTP and JSON parsing capabilities:
 * Ublox variant of mbed Easy Connect
   https://os.mbed.com/teams/ublox/code/easy-connect/
 
-* Ublox cellular interface libraries
-  These libraries enables different interfaces to the u-blox cellular module.
-  In the source code of easy-connect the specific interface can be selected.
+* Ublox cellular interface libraries. These libraries enables different interfaces to the u-blox cellular module. In the source code of easy-connect the specific interface can be selected.  We can use the cellular HTTP capabilities instead og the mbed HTTP-CLIENT libraries. Find an example [here](https://os.mbed.com/teams/ublox/code/example-ublox-at-cellular-interface-ext/file/e1b6cd53333f/main.cpp/)
 
 ## External code
 
