@@ -10,7 +10,6 @@
 *******************************************************************************/
 
 #include "Token.h"
-#include "mbed.h"
 
 using namespace std;
 
@@ -32,12 +31,12 @@ int const& SPIIO::Token::expiresIn() const
 
 void SPIIO::Token::access_token(string const& newAccess_token)
 {
-    this->token.access_token = newAccess_token;
+    token.access_token = newAccess_token;
 };
 
 void SPIIO::Token::expiresIn(int const& newExpiresIn)
 {
-    this->token.expiresIn = newExpiresIn;
+    token.expiresIn = newExpiresIn;
 };
 
 bool SPIIO::Token::isValid() const
@@ -53,6 +52,6 @@ bool SPIIO::Token::isExpired() const
 
 void SPIIO::Token::reset()
 {
-    this->token.access_token = "";
-    this->token.expiresIn = 0;
+    token.access_token = "";
+    token.expiresIn = 0;
 };

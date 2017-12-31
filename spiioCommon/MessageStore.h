@@ -11,9 +11,8 @@
 #ifndef _MESSAGESTORE_H_
 #define _MESSAGESTORE_H_
 
-#include <vector>
-
 #include <Message.h>
+#include <vector>
 
 using namespace std;
 namespace SPIIO {

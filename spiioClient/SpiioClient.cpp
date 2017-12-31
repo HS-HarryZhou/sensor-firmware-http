@@ -10,15 +10,12 @@
 
 #include "easy-connect.h"
 #include "http_request.h"
-#include "mbed.h"
-
-//#include "Json.h"
 #include "jsmn.h"
 
 #include "SpiioClient.h"
-#include "Token.h"
+#include "SpiioCommon/SpiioUtils.h"
 
-#include "string"
+#include <string>
 
 using namespace std;
 

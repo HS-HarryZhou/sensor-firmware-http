@@ -9,8 +9,8 @@
 *******************************************************************************/
 
 #include "SpiioBoard.h"
-#include "SpiioCommon/SpiioUtils.h"
-#include "WakeUp.h"
+#include "mbed.h"
+//#include "WakeUp.h"
 
 using namespace std;
 

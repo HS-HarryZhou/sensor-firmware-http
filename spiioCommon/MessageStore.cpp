@@ -11,10 +11,7 @@
   TODO - Add max entries in the store and keep elements on FIFO principle
 */
 #include "MessageStore.h"
-#include "SpiioUtils.h"
-#include <Message.h>
 #include <stdio.h>
-#include <string>
 
 SPIIO::MessageStore::MessageStore(){};
 
@@ -42,11 +39,12 @@ void SPIIO::MessageStore::JSONstringify(string& body)
     printf("\nFormat readings: %i\n", storeSize);
 
     string JsonString = "";
-    int i = 0;
 
     if (storeSize > 0) {
-        string measurement = "";
+        int i = 0;
         for (std::vector<SPIIO::Message>::const_iterator it = store.begin(); it != store.end(); ++it) {
+            string measurement = "";
+
             (*it).JSONstringify(measurement);
             if (i > 0) {
                 JsonString = JsonString + "," + measurement;
@@ -56,10 +54,7 @@ void SPIIO::MessageStore::JSONstringify(string& body)
             measurement = "";
             i++;
         }
-    } else {
-        JsonString = "";
-    }
+    };
 
     body = "[" + JsonString + "]";
-    JsonString = "";
 };

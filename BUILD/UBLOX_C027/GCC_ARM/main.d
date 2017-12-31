@@ -120,4 +120,4 @@ BUILD/UBLOX_C027/GCC_ARM/./main.o: main.cpp \
  mbed-os/platform/DeepSleepLock.h mbed-os/platform/Callback.h \
  mbed-os/platform/FunctionPointer.h SpiioCommon/Config.h \
  SpiioCommon/Device.h SpiioCommon/MessageStore.h spiioCommon/Message.h \
- SpiioCommon/SpiioUtils.h spiioClient/Token.h
+ spiioClient/Token.h

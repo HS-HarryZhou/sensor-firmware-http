@@ -11,8 +11,6 @@
 #ifndef _SPIIOUTILS_H_
 #define _SPIIOUTILS_H_
 
-#include <string>
-
 using namespace std;
 
 // The number of measurements to collect before delivering

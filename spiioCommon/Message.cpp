@@ -10,7 +10,6 @@
 *******************************************************************************/
 
 #include <stdio.h>
-#include <string>
 
 #include "Message.h"
 #include "SpiioUtils.h"
@@ -104,6 +103,4 @@ void SPIIO::Message::JSONstringify(string& JSONString) const
     string time = x;
 
     JSONString = "{\"moist\":" + moist + ",\"temp\":" + temp + ",\"light\":" + light + ",\"batt\":" + batt + ",\"time\":" + time + "}";
-
-    // printf("\nJSON: %s\n", JSONString.c_str());
 };

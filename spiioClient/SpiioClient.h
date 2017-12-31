@@ -16,7 +16,7 @@
 #include "SpiioCommon/Config.h"
 #include "SpiioCommon/Device.h"
 #include "SpiioCommon/MessageStore.h"
-#include "SpiioCommon/SpiioUtils.h"
+
 #include "Token.h"
 
 using namespace std;

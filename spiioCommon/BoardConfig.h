@@ -16,8 +16,6 @@
 #ifndef _BOARDCONFIG_H_
 #define _BOARDCONFIG_H_
 
-#include <string>
-
 using namespace std;
 
 namespace SPIIO {
