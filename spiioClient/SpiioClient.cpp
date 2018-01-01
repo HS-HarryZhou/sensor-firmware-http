@@ -53,7 +53,7 @@ SPIIO::SpiioClient::~SpiioClient()
 int SPIIO::SpiioClient::publish(SPIIO::MessageStore& store)
 {
     // Check messages batch limit reached before publishing
-    if (store.count() < MEASUREMENT_COLLECTION_COUNT && store.count() > 0) {
+    if (!store.DoPostReadings()) {
         return SPIIO_SUCCESS;
     }
 
@@ -84,10 +84,15 @@ int SPIIO::SpiioClient::publish(SPIIO::MessageStore& store)
     // TODO debug mode
     dump_response(post_res);
 
-    // TODO parse response
+    // parse response
     std::string content = post_res->get_body_as_string();
     const char* response = content.c_str();
-    parseReadingsResponse(response);
+    CollectionConfig newStoreConfig;
+    parseReadingsResponse(response, newStoreConfig);
+
+    // update store
+    store.collection_count(newStoreConfig.collection_count);
+    store.collection_interval(newStoreConfig.collection_interval);
 
     // Readings delivered - empty readings in the message store
     store.reset();
@@ -128,12 +133,18 @@ void SPIIO::SpiioClient::getToken()
     // parse the response and update token object
     std::string content = post_res->get_body_as_string();
     const char* response = content.c_str();
-    parseAuthnResponse(response);
+    AuthnResponse authnResponse;
+    parseAuthnResponse(response, authnResponse);
+
+    //  Update token
+    token.access_token(authnResponse.access_token);
+    token.token_type(authnResponse.token_type);
+    token.expires_in(authnResponse.expires_in);
 
     delete post_req;
 }
 
-int SPIIO::SpiioClient::parseAuthnResponse(const char* jsonData)
+int SPIIO::SpiioClient::parseAuthnResponse(const char* jsonData, AuthnResponse& authnResponse)
 {
     jsmn_parser p;
     jsmntok_t t[128];
@@ -150,10 +161,13 @@ int SPIIO::SpiioClient::parseAuthnResponse(const char* jsonData)
         /* Loop over all keys of the root object */
         for (int i = 1; i < r; i++) {
             if (jsoneq(jsonData, &t[i], "access_token") == 0) {
-                std::string tokenString = std::string((const char*)(jsonData + t[i + 1].start), (size_t)t[i + 1].end - t[i + 1].start);
-                token.access_token(tokenString);
+                authnResponse.access_token = string((const char*)(jsonData + t[i + 1].start), (size_t)t[i + 1].end - t[i + 1].start);
+                i++;
+            } else if (jsoneq(jsonData, &t[i], "token_type") == 0) {
+                authnResponse.token_type = string((const char*)(jsonData + t[i + 1].start), (size_t)t[i + 1].end - t[i + 1].start);
                 i++;
             } else if (jsoneq(jsonData, &t[i], "expires_in") == 0) {
+                authnResponse.expires_in = atoi((jsonData + t[i + 1].start));
                 i++;
             } else {
                 // discard the rest of the tokens
@@ -165,7 +179,7 @@ int SPIIO::SpiioClient::parseAuthnResponse(const char* jsonData)
     }
 }
 
-int SPIIO::SpiioClient::parseReadingsResponse(const char* jsonData)
+int SPIIO::SpiioClient::parseReadingsResponse(const char* jsonData, CollectionConfig& newStoreConfig)
 {
     jsmn_parser p;
     jsmntok_t t[128];
@@ -182,8 +196,10 @@ int SPIIO::SpiioClient::parseReadingsResponse(const char* jsonData)
         /* Loop over all keys of the root object */
         for (int i = 1; i < r; i++) {
             if (jsoneq(jsonData, &t[i], "interval") == 0) {
+                newStoreConfig.collection_interval = atoi((jsonData + t[i + 1].start));
                 i++;
             } else if (jsoneq(jsonData, &t[i], "count") == 0) {
+                newStoreConfig.collection_count = atoi((jsonData + t[i + 1].start));
                 i++;
             } else {
                 // discard the rest of the tokens

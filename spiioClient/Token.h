@@ -22,8 +22,11 @@ public:
     string const& access_token() const;
     void access_token(string const& newAccess_token);
 
-    int const& expiresIn() const;
-    void expiresIn(int const& newExpiresIn);
+    int const& expires_in() const;
+    void expires_in(int const& newExpiresIn);
+
+    string const& token_type() const;
+    void token_type(string const& type);
 
     void reset();
     bool isValid() const;
@@ -33,6 +36,7 @@ private:
     struct
     {
         string access_token;
+        string token_type;
         int expiresIn;
     } token;
 };

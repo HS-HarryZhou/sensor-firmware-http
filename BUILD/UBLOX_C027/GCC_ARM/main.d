@@ -1,7 +1,7 @@
 BUILD/UBLOX_C027/GCC_ARM/./main.o: main.cpp \
  BUILD/UBLOX_C027/GCC_ARM/mbed_config.h SpiioCommon//Message.h \
- SpiioCommon/Config.h SpiioCommon/Device.h spiioBoard/SpiioBoard.h \
- SpiioCommon/BoardConfig.h SpiioCommon/Message.h \
+ SpiioCommon/Config.h SpiioCommon/Device.h SpiioCommon/StoreConfig.h \
+ spiioBoard/SpiioBoard.h SpiioCommon/BoardConfig.h SpiioCommon/Message.h \
  spiioClient/SpiioClient.h mbed-os/mbed.h mbed-os/rtos/rtos.h \
  mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_lib.h \
@@ -120,4 +120,4 @@ BUILD/UBLOX_C027/GCC_ARM/./main.o: main.cpp \
  mbed-os/platform/DeepSleepLock.h mbed-os/platform/Callback.h \
  mbed-os/platform/FunctionPointer.h SpiioCommon/Config.h \
  SpiioCommon/Device.h SpiioCommon/MessageStore.h spiioCommon/Message.h \
- spiioClient/Token.h
+ spiioCommon/StoreConfig.h spiioClient/Token.h

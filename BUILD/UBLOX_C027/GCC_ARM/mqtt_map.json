@@ -4,7 +4,7 @@
         "size": {
             ".data": 7, 
             ".bss": 27, 
-            ".text": 766
+            ".text": 765
         }
     }, 
     {
@@ -20,7 +20,7 @@
         "size": {
             ".data": 0, 
             ".bss": 0, 
-            ".text": 7968
+            ".text": 8508
         }
     }, 
     {
@@ -60,7 +60,7 @@
         "size": {
             ".data": 0, 
             ".bss": 0, 
-            ".text": 92
+            ".text": 108
         }
     }, 
     {
@@ -132,7 +132,7 @@
         "size": {
             ".data": 0, 
             ".bss": 0, 
-            ".text": 114
+            ".text": 150
         }
     }, 
     {
@@ -180,7 +180,7 @@
         "size": {
             ".data": 4, 
             ".bss": 2244, 
-            ".text": 5477
+            ".text": 5672
         }
     }, 
     {
@@ -188,7 +188,7 @@
         "size": {
             ".data": 0, 
             ".bss": 0, 
-            ".text": 73
+            ".text": 97
         }
     }, 
     {
@@ -228,7 +228,15 @@
         "size": {
             ".data": 0, 
             ".bss": 0, 
-            ".text": 968
+            ".text": 970
+        }
+    }, 
+    {
+        "module": "spiioCommon/StoreConfig.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 28
         }
     }, 
     {
@@ -266,7 +274,7 @@
     {
         "summary": {
             "static_ram": 12076, 
-            "total_flash": 137603
+            "total_flash": 138443
         }
     }
 ]

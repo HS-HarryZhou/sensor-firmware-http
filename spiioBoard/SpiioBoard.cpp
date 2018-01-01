@@ -9,6 +9,7 @@
 *******************************************************************************/
 
 #include "SpiioBoard.h"
+#include "SpiioCommon/SpiioUtils.h"
 #include "mbed.h"
 //#include "WakeUp.h"
 
@@ -32,9 +33,10 @@ SPIIO::Message SPIIO::SpiioBoard::getMeasurement()
 /*
 Device sleep implmented with https://os.mbed.com/users/Sissors/code/WakeUp/file/65c04a02ad45/WakeUp.h/
 More on sleep in Mbed OS5.6: https://os.mbed.com/docs/v5.6/reference/sleep-manager.html
+Power control for Mbed LPC1768:  the https://os.mbed.com/users/JST2011/code/PowerControl/
 TODO not sure how this should work.
 */
-void SPIIO::SpiioBoard::hibernate()
+void SPIIO::SpiioBoard::hibernate(int period)
 {
     // Set wakeup time for 2 seconds
     //WakeUp::set(MEASUREMENT_COLLECTION_INTERVAL);
@@ -43,5 +45,7 @@ void SPIIO::SpiioBoard::hibernate()
     //sleep();
 
     // wait(MEASUREMENT_COLLECTION_INTERVAL);
-    wait(30.0);
+    printf("\nsleeping : %i sec\n", period);
+
+    wait(period);
 }

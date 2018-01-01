@@ -7,17 +7,35 @@
 * Contributors:
 *    Jens-Ole Graulund - initial API and implementation
 *******************************************************************************/
-/*
-  TODO - Add max entries in the store and keep elements on FIFO principle
-*/
-#include <stdio.h>
-
 #include "MessageStore.h"
 #include "SpiioCommon/SpiioUtils.h"
 
-SPIIO::MessageStore::MessageStore()
+#include <stdio.h>
+
+SPIIO::MessageStore::MessageStore(SPIIO::StoreConfig& storeConfig)
+    : config(storeConfig)
 {
     store.reserve(MAX_STORE_MEASUREMENTS + 1);
+};
+
+bool SPIIO::MessageStore::DoPostReadings() const
+{
+    return (store.size() > 0 && store.size() == (unsigned)config.collection_count());
+};
+
+int SPIIO::MessageStore::GetCollectionInterval() const
+{
+    return config.collection_interval();
+};
+
+void SPIIO::MessageStore::collection_interval(const int& interval)
+{
+    config.collection_interval(interval);
+};
+
+void SPIIO::MessageStore::collection_count(const int& count)
+{
+    config.collection_count(count);
 };
 
 void SPIIO::MessageStore::add(SPIIO::Message message)
@@ -43,11 +61,7 @@ void SPIIO::MessageStore::reset()
 
 void SPIIO::MessageStore::JSONstringify(string& body)
 {
-    int storeSize = store.size();
-    printf("\nFormat readings: %i\n", storeSize);
-
     string JsonString = "";
-
     if (!store.empty()) {
         int i = 0;
         for (std::vector<SPIIO::Message>::const_iterator it = store.begin(); it != store.end(); ++it) {
@@ -62,6 +76,5 @@ void SPIIO::MessageStore::JSONstringify(string& body)
             i++;
         }
     };
-
     body = "[" + JsonString + "]";
 };

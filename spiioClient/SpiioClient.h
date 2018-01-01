@@ -21,12 +21,24 @@
 
 using namespace std;
 namespace SPIIO {
+
+typedef struct
+{
+    int collection_count;
+    int collection_interval;
+} CollectionConfig;
+
+typedef struct
+{
+    string access_token;
+    string token_type;
+    int expires_in;
+} AuthnResponse;
+
 class SpiioClient {
 public:
     SpiioClient(const SPIIO::Config& config, const SPIIO::Device& device);
-
     ~SpiioClient();
-
     int publish(SPIIO::MessageStore& store);
 
 private:
@@ -37,8 +49,8 @@ private:
 
     void getToken();
 
-    int parseAuthnResponse(const char* jsonData);
-    int parseReadingsResponse(const char* jsonData);
+    int parseAuthnResponse(const char* jsonData, AuthnResponse& authnResponse);
+    int parseReadingsResponse(const char* jsonData, CollectionConfig& config);
 
     SPIIO::Token token;
 };

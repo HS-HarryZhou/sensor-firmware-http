@@ -20,7 +20,7 @@ class SpiioBoard {
 public:
     SpiioBoard(const SPIIO::BoardConfig& boardConfig);
     SPIIO::Message getMeasurement();
-    void hibernate();
+    void hibernate(int period);
 
 private:
     const SPIIO::BoardConfig _boardConfig;

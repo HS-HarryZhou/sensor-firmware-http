@@ -24,9 +24,14 @@ string const& SPIIO::Token::access_token() const
     return token.access_token;
 };
 
-int const& SPIIO::Token::expiresIn() const
+int const& SPIIO::Token::expires_in() const
 {
     return token.expiresIn;
+};
+
+string const& SPIIO::Token::token_type() const
+{
+    return token.token_type;
 };
 
 void SPIIO::Token::access_token(string const& newAccess_token)
@@ -34,9 +39,14 @@ void SPIIO::Token::access_token(string const& newAccess_token)
     token.access_token = newAccess_token;
 };
 
-void SPIIO::Token::expiresIn(int const& newExpiresIn)
+void SPIIO::Token::expires_in(int const& newExpiresIn)
 {
     token.expiresIn = newExpiresIn;
+};
+
+void SPIIO::Token::token_type(string const& type)
+{
+    token.token_type = type;
 };
 
 bool SPIIO::Token::isValid() const

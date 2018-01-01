@@ -25,6 +25,7 @@
         https://github.com/vpcola/MQTTGateway/blob/master/DownloadFile.cpp
               
   (WakeUp: https://os.mbed.com/users/Sissors/code/WakeUp/)
+  https://os.mbed.com/users/labishrestha/code/WakeUp/
 
   Other Links of interest:
     Sleep in Mbed OS5.6: https://os.mbed.com/docs/v5.6/reference/sleep-manager.html
@@ -40,6 +41,7 @@
 #include "SpiioCommon//Message.h"
 #include "SpiioCommon/Config.h"
 #include "SpiioCommon/Device.h"
+#include "SpiioCommon/StoreConfig.h"
 #include "spiioBoard/SpiioBoard.h"
 #include "spiioClient/SpiioClient.h"
 
@@ -53,6 +55,7 @@ int main(void)
     const SPIIO::Device theDevice;
     const SPIIO::Config spiioNetwork;
     const SPIIO::BoardConfig boardConfig;
+    SPIIO::StoreConfig storeConfig;
 
     // Create board to handle MCU and sensor interface
     SPIIO::SpiioBoard board(boardConfig);
@@ -63,7 +66,7 @@ int main(void)
     SPIIO::SpiioClient spiioClient(spiioNetwork, theDevice);
 
     // Create message store to hold meassurements
-    SPIIO::MessageStore store;
+    SPIIO::MessageStore store(storeConfig);
 
     while (true) {
 
@@ -81,6 +84,6 @@ int main(void)
         // Set the board in sleep mode. Sleep period is defined by global parameter MEASUREMENT_COLLECTION_INTERVAL.
         // TODO pass parameter with sleep period. May be indirectly changed in config in SpiioClient::Publish.
         // when receiving response from readings post.
-        board.hibernate();
+        board.hibernate(store.GetCollectionInterval());
     }
 }

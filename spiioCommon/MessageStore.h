@@ -12,20 +12,26 @@
 #define _MESSAGESTORE_H_
 
 #include <Message.h>
+#include <StoreConfig.h>
+
 #include <vector>
 
 using namespace std;
 namespace SPIIO {
 class MessageStore {
 public:
-    MessageStore();
+    MessageStore(SPIIO::StoreConfig& config);
     void add(SPIIO::Message message);
     int count();
     void reset();
     void JSONstringify(string& body);
-    // void JSONstringify(char* str, size_t len);
+    void collection_count(const int&);
+    void collection_interval(const int&);
+    int GetCollectionInterval() const;
+    bool DoPostReadings() const;
 
 private:
+    SPIIO::StoreConfig config;
     vector<SPIIO::Message> store;
 };
 }
