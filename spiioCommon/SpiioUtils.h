@@ -18,6 +18,9 @@ const int MEASUREMENT_COLLECTION_COUNT = 2;
 // The time interval between measurements
 const int MEASUREMENT_COLLECTION_INTERVAL = 30.0;
 
+// The time interval between measurements
+const int MAX_STORE_MEASUREMENTS = 4;
+
 const int SPIIO_FAILURE = -1;
 const int SPIIO_SUCCESS = 0;
 

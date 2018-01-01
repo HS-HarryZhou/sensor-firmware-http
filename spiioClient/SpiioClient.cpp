@@ -19,6 +19,14 @@
 
 using namespace std;
 
+static int jsoneq(const char* json, jsmntok_t* tok, const char* s)
+{
+    if (tok->type == JSMN_STRING && (int)strlen(s) == tok->end - tok->start && strncmp(json + tok->start, s, tok->end - tok->start) == 0) {
+        return 0;
+    }
+    return -1;
+}
+
 void dump_response(HttpResponse* res)
 {
     printf("Status: %d - %s\n", res->get_status_code(), res->get_status_message().c_str());
@@ -68,16 +76,18 @@ int SPIIO::SpiioClient::publish(SPIIO::MessageStore& store)
     printf("\nPosting Readings : %s\n", jsonstr);
 
     // Post the readings.
-    HttpResponse* get_res = post_req->send(jsonstr, strlen(jsonstr));
-    if (!get_res) {
+    HttpResponse* post_res = post_req->send(jsonstr, strlen(jsonstr));
+    if (!post_res) {
         return SPIIO_FAILURE;
     }
 
     // TODO debug mode
-    dump_response(get_res);
+    dump_response(post_res);
 
     // TODO parse response
-    // parseReadingsResponse(response);
+    std::string content = post_res->get_body_as_string();
+    const char* response = content.c_str();
+    parseReadingsResponse(response);
 
     // Readings delivered - empty readings in the message store
     store.reset();
@@ -121,15 +131,6 @@ void SPIIO::SpiioClient::getToken()
     parseAuthnResponse(response);
 
     delete post_req;
-    return;
-}
-
-static int jsoneq(const char* json, jsmntok_t* tok, const char* s)
-{
-    if (tok->type == JSMN_STRING && (int)strlen(s) == tok->end - tok->start && strncmp(json + tok->start, s, tok->end - tok->start) == 0) {
-        return 0;
-    }
-    return -1;
 }
 
 int SPIIO::SpiioClient::parseAuthnResponse(const char* jsonData)
@@ -142,7 +143,7 @@ int SPIIO::SpiioClient::parseAuthnResponse(const char* jsonData)
 
     if (r < 0) {
         printf("Parse failed\n");
-        return -1;
+        return SPIIO_FAILURE;
     }
 
     if ((r > 0) && (t[0].type == JSMN_OBJECT)) {
@@ -152,12 +153,44 @@ int SPIIO::SpiioClient::parseAuthnResponse(const char* jsonData)
                 std::string tokenString = std::string((const char*)(jsonData + t[i + 1].start), (size_t)t[i + 1].end - t[i + 1].start);
                 token.access_token(tokenString);
                 i++;
+            } else if (jsoneq(jsonData, &t[i], "expires_in") == 0) {
+                i++;
             } else {
                 // discard the rest of the tokens
             }
         }
-        return 0;
+        return SPIIO_SUCCESS;
     } else {
-        return -1;
+        return SPIIO_FAILURE;
+    }
+}
+
+int SPIIO::SpiioClient::parseReadingsResponse(const char* jsonData)
+{
+    jsmn_parser p;
+    jsmntok_t t[128];
+
+    jsmn_init(&p);
+    int r = jsmn_parse(&p, jsonData, strlen(jsonData), t, sizeof(t) / sizeof(t[0]));
+
+    if (r < 0) {
+        printf("Parse failed\n");
+        return SPIIO_FAILURE;
+    }
+
+    if ((r > 0) && (t[0].type == JSMN_OBJECT)) {
+        /* Loop over all keys of the root object */
+        for (int i = 1; i < r; i++) {
+            if (jsoneq(jsonData, &t[i], "interval") == 0) {
+                i++;
+            } else if (jsoneq(jsonData, &t[i], "count") == 0) {
+                i++;
+            } else {
+                // discard the rest of the tokens
+            }
+        }
+        return SPIIO_SUCCESS;
+    } else {
+        return SPIIO_FAILURE;
     }
 }

@@ -38,6 +38,7 @@ private:
     void getToken();
 
     int parseAuthnResponse(const char* jsonData);
+    int parseReadingsResponse(const char* jsonData);
 
     SPIIO::Token token;
 };

@@ -10,13 +10,21 @@
 /*
   TODO - Add max entries in the store and keep elements on FIFO principle
 */
-#include "MessageStore.h"
 #include <stdio.h>
 
-SPIIO::MessageStore::MessageStore(){};
+#include "MessageStore.h"
+#include "SpiioCommon/SpiioUtils.h"
+
+SPIIO::MessageStore::MessageStore()
+{
+    store.reserve(MAX_STORE_MEASUREMENTS + 1);
+};
 
 void SPIIO::MessageStore::add(SPIIO::Message message)
 {
+    if (store.size() >= MAX_STORE_MEASUREMENTS) {
+        store.erase(store.begin());
+    }
     store.push_back(message);
     printf("\nMessage pushed on store:%i\n", store.size());
 };
@@ -40,7 +48,7 @@ void SPIIO::MessageStore::JSONstringify(string& body)
 
     string JsonString = "";
 
-    if (storeSize > 0) {
+    if (!store.empty()) {
         int i = 0;
         for (std::vector<SPIIO::Message>::const_iterator it = store.begin(); it != store.end(); ++it) {
             string measurement = "";
@@ -51,7 +59,6 @@ void SPIIO::MessageStore::JSONstringify(string& body)
             } else {
                 JsonString += measurement;
             }
-            measurement = "";
             i++;
         }
     };
