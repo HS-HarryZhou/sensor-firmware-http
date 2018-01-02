@@ -33,6 +33,7 @@ SPIIO::Message SPIIO::SpiioBoard::getMeasurement()
 /*
 TODO not sure how this should work.
 Device sleep with ?: https://os.mbed.com/teams/ublox/code/WakeUp/
+and a variant:       https://os.mbed.com/teams/ublox/code/low-power-sleep/
 More on sleep in Mbed OS5.6: https://os.mbed.com/docs/v5.6/reference/sleep-manager.html
 Power control for Mbed (u-blox LPC1768 not included): https://os.mbed.com/users/JST2011/code/PowerControl/
 
