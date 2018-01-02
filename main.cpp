@@ -78,12 +78,10 @@ int main(void)
 
         // Publish message in the store.
         // Spiio client takes care of token renewal/security
-        // and decides whether to send or keep messages in the store dependent on the MEASUREMENT_COLLECTION_COUNT paramenter.
+        // and decides whether to send or keep messages in the store until message batch is filled.
         spiioClient.publish(store);
 
-        // Set the board in sleep mode. Sleep period is defined by global parameter MEASUREMENT_COLLECTION_INTERVAL.
-        // TODO pass parameter with sleep period. May be indirectly changed in config in SpiioClient::Publish.
-        // when receiving response from readings post.
+        // Set the board in sleep mode. The Store may have an update collection interval.
         board.hibernate(store.GetCollectionInterval());
     }
 }
