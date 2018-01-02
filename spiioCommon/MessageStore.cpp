@@ -28,12 +28,12 @@ int SPIIO::MessageStore::GetCollectionInterval() const
     return config.collection_interval();
 };
 
-void SPIIO::MessageStore::collection_interval(const int& interval)
+void SPIIO::MessageStore::collection_interval(const int interval)
 {
     config.collection_interval(interval);
 };
 
-void SPIIO::MessageStore::collection_count(const int& count)
+void SPIIO::MessageStore::collection_count(const int count)
 {
     config.collection_count(count);
 };

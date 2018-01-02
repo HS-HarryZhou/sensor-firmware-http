@@ -89,7 +89,7 @@ The follwoing libraries is added to provide HTTP and JSON parsing capabilities:
 
 A Base 64 encoder is manual added by copying code from: https://github.com/vpcola/MQTTGateway/blob/master/DownloadFile.cpp
 
-Sleep / Deepsleep mode is not implemented yet but found this piece of (old) code https://os.mbed.com/users/Sissors/code/WakeUp/. May be outdated and need to investigate more on this.
+Sleep / Deepsleep mode is not implemented yet but found this piece of code https://os.mbed.com/teams/ublox/code/WakeUp/. May be outdated and need to investigate more on this.
 
 # Program logic
 

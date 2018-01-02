@@ -25,8 +25,8 @@ public:
     int count();
     void reset();
     void JSONstringify(string& body);
-    void collection_count(const int&);
-    void collection_interval(const int&);
+    void collection_count(const int);
+    void collection_interval(const int);
     int GetCollectionInterval() const;
     bool DoPostReadings() const;
 

@@ -37,7 +37,7 @@ typedef struct
 
 class SpiioClient {
 public:
-    SpiioClient(const SPIIO::Config& config, const SPIIO::Device& device);
+    SpiioClient(NetworkInterface* nw, const SPIIO::Config& config, const SPIIO::Device& device);
     ~SpiioClient();
     int publish(SPIIO::MessageStore& store);
 

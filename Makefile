@@ -402,7 +402,6 @@ OBJECTS += ./ublox-at-cellular-interface-ext/UbloxATCellularInterfaceExt.o
 OBJECTS += ./ublox-at-cellular-interface-ext/ublox-at-cellular-interface/UbloxATCellularInterface.o
 OBJECTS += ./ublox-cellular-base/UbloxCellularBase.o
 OBJECTS += ./ublox-cellular-driver-gen/UbloxCellularDriverGen.o
-OBJECTS += ./ublox-ppp-cellular-interface/UbloxPPPCellularInterface.o
 
 
 INCLUDE_PATHS += -I../
@@ -535,7 +534,6 @@ INCLUDE_PATHS += -I.././ublox-at-cellular-interface-ext
 INCLUDE_PATHS += -I.././ublox-at-cellular-interface-ext/ublox-at-cellular-interface
 INCLUDE_PATHS += -I.././ublox-cellular-base
 INCLUDE_PATHS += -I.././ublox-cellular-driver-gen
-INCLUDE_PATHS += -I.././ublox-ppp-cellular-interface
 
 LIBRARY_PATHS :=
 LIBRARIES :=
@@ -558,13 +556,13 @@ C_FLAGS += -DFEATURE_LWIP=1
 C_FLAGS += -D__MBED__=1
 C_FLAGS += -DDEVICE_I2CSLAVE=1
 C_FLAGS += -DTARGET_LIKE_MBED
+C_FLAGS += -DMBED_BUILD_TIMESTAMP=1514902454.27
 C_FLAGS += -DTARGET_NXP
 C_FLAGS += -DARM_MATH_CM3
 C_FLAGS += -D__MBED_CMSIS_RTOS_CM
-C_FLAGS += -D__CMSIS_RTOS
 C_FLAGS += -DDEVICE_RTC=1
 C_FLAGS += -DTOOLCHAIN_object
-C_FLAGS += -DMBED_BUILD_TIMESTAMP=1514895251.44
+C_FLAGS += -D__CMSIS_RTOS
 C_FLAGS += -DTARGET_FF_ARDUINO
 C_FLAGS += -DTOOLCHAIN_GCC
 C_FLAGS += -DDEVICE_CAN=1
@@ -608,13 +606,13 @@ CXX_FLAGS += -DFEATURE_LWIP=1
 CXX_FLAGS += -D__MBED__=1
 CXX_FLAGS += -DDEVICE_I2CSLAVE=1
 CXX_FLAGS += -DTARGET_LIKE_MBED
+CXX_FLAGS += -DMBED_BUILD_TIMESTAMP=1514902454.27
 CXX_FLAGS += -DTARGET_NXP
 CXX_FLAGS += -DARM_MATH_CM3
 CXX_FLAGS += -D__MBED_CMSIS_RTOS_CM
-CXX_FLAGS += -D__CMSIS_RTOS
 CXX_FLAGS += -DDEVICE_RTC=1
 CXX_FLAGS += -DTOOLCHAIN_object
-CXX_FLAGS += -DMBED_BUILD_TIMESTAMP=1514895251.44
+CXX_FLAGS += -D__CMSIS_RTOS
 CXX_FLAGS += -DTARGET_FF_ARDUINO
 CXX_FLAGS += -DTOOLCHAIN_GCC
 CXX_FLAGS += -DDEVICE_CAN=1
@@ -720,7 +718,6 @@ ASM_FLAGS += -I./mbed-os/rtos/TARGET_CORTEX/rtx4
 ASM_FLAGS += -I./mbed-os/events
 ASM_FLAGS += -I./mbed-os/events/equeue
 ASM_FLAGS += -I./spiioBoard
-ASM_FLAGS += -I./ublox-ppp-cellular-interface
 ASM_FLAGS += -I./ublox-at-cellular-interface-ext
 ASM_FLAGS += -I./ublox-at-cellular-interface-ext/ublox-at-cellular-interface
 ASM_FLAGS += -I./ublox-cellular-driver-gen

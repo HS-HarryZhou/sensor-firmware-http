@@ -8,7 +8,8 @@
 *    Jens-Ole Graulund - initial API and implementation
 *******************************************************************************/
 
-#include "easy-connect.h"
+#include "mbed.h"
+#include "NetworkInterface.h"
 #include "http_request.h"
 #include "jsmn.h"
 
@@ -38,24 +39,25 @@ void dump_response(HttpResponse* res)
     printf("\nBody (%d bytes):\n\n%s\n", res->get_body_length(), res->get_body_as_string().c_str());
 }
 
-SPIIO::SpiioClient::SpiioClient(const SPIIO::Config& config, const SPIIO::Device& device)
+SPIIO::SpiioClient::SpiioClient(NetworkInterface* nw, const SPIIO::Config& config, const SPIIO::Device& device)
     : _device(device)
     , _config(config)
+    , _network(nw)
 {
-    _network = easy_connect(true);
+    // _network = easy_connect(true);
 }
 
 SPIIO::SpiioClient::~SpiioClient()
 {
-    _network->disconnect();
+    // _network->disconnect();
 }
 
 int SPIIO::SpiioClient::publish(SPIIO::MessageStore& store)
 {
     // Check messages batch limit reached before publishing
-    if (!store.DoPostReadings()) {
-        return SPIIO_SUCCESS;
-    }
+    // if (!store.DoPostReadings()) {
+    //     return SPIIO_SUCCESS;
+    // }
 
     // Renew token ?
     getToken();

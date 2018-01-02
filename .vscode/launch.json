@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C++ Debug",
+            "name": "C++ Launch",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/BUILD/${workspaceRootFolderName}.elf",
@@ -40,7 +40,7 @@
             },
             "osx": {
                 "MIMode": "gdb",
-                "MIDebuggerPath": "arm-none-eabi-gdb",
+                "MIDebuggerPath": "/usr/local/bin/arm-none-eabi-gdb",
                 "debugServerPath": "pyocd-gdbserver"
             },
             "windows": {

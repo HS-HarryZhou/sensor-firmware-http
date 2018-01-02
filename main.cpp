@@ -38,6 +38,8 @@
     u-blox cellular http - https://os.mbed.com/teams/ublox/code/example-ublox-at-cellular-interface-ext/file/e1b6cd53333f/main.cpp/            
  */
 
+#include "easy-connect.h"
+
 #include "SpiioCommon//Message.h"
 #include "SpiioCommon/Config.h"
 #include "SpiioCommon/Device.h"
@@ -49,11 +51,15 @@ using namespace std;
 
 int main(void)
 {
+    NetworkInterface* network = easy_connect(true);
+    if (!network) {
+        return 1;
+    }
 
     // Create configuration objects. Configuration objects responsiblity is to create the environment to the processing objects.
     // Configuration values can be static, derived fom MCU information or supplied during factory flash of firmware.
     const SPIIO::Device theDevice;
-    const SPIIO::Config spiioNetwork;
+    const SPIIO::Config spiioConfig;
     const SPIIO::BoardConfig boardConfig;
     SPIIO::StoreConfig storeConfig;
 
@@ -63,10 +69,12 @@ int main(void)
     // Create Spiio service API client with:
     // - Spiio server config to know how to connect to the Spiio services.
     // - Device information to identify the sensor to the spiio service.
-    SPIIO::SpiioClient spiioClient(spiioNetwork, theDevice);
+    SPIIO::SpiioClient spiioClient(network, spiioConfig, theDevice);
 
     // Create message store to hold meassurements
     SPIIO::MessageStore store(storeConfig);
+
+    network->disconnect();
 
     while (true) {
 
@@ -76,10 +84,17 @@ int main(void)
         // Add the measurement to the message store.
         store.add(message);
 
-        // Publish message in the store.
-        // Spiio client takes care of token renewal/security
-        // and decides whether to send or keep messages in the store until message batch is filled.
-        spiioClient.publish(store);
+        if (store.DoPostReadings()) {
+
+            network->connect();
+
+            // Publish message in the store.
+            // Spiio client takes care of token renewal/security
+            // and decides whether to send or keep messages in the store until message batch is filled.
+            spiioClient.publish(store);
+
+            network->disconnect();
+        }
 
         // Set the board in sleep mode. The Store may have an update collection interval.
         board.hibernate(store.GetCollectionInterval());
