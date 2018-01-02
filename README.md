@@ -48,11 +48,27 @@ Doing a clean build add the parameter `-c`
 The sim card configuration is done in the file `mbed-config.h`. In most cases you only need to define the APN.
 
 # Running and debugging
-
+You can debug the firmware by including print statements in the code or use a debugger via VS Code.
+## Debugging with print statements
 Drag an drop the project `bin` file to your connected boards `DAPLINK` mounted device.
 
 Connect a terminal program to the serial interface of the development board to see log messages.
 You can download [CoolTerm](http://freeware.the-meiers.org/) or choose whatever you like or already have.
+
+## Debugging with VS Code
+Debugging environment is defined in the VS code file `launch.json`. 
+It is only tested on the mac OSX platform and you must first install [PyOCD](https://github.com/mbedmicro/pyOCD) with
+```
+sudo -H pip install Cython
+sudo -H pip install --pre -U pyocd
+```
+
+You should also add the GDB debugger library to your PATH if not already present. On OSX edit the path file `vi /etc/paths` and save. 
+
+Open VS code project, switch to the debug view and start debugging. 
+
+![debuf](debug.png)
+
 
 # Libraries
 

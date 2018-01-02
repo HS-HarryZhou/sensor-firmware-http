@@ -35,13 +35,13 @@
             },
             "linux": {
                 "MIMode": "gdb",
-                "MIDebuggerPath": "/Users/jensolegraulund/spiio/sensor/mac-build/gcc-arm-none-eabi-4_9-2015q3/bin/arm-none-eabi-gdb",
-                "debugServerPath": "/Users/jensolegraulund/Library/Python/2.7/lib/python/site-packages/pyOCD/gdbserver"
+                "MIDebuggerPath": "/usr/bin/arm-none-eabi-gdb",
+                "debugServerPath": "pyocd-gdbserver"
             },
             "osx": {
                 "MIMode": "gdb",
-                "MIDebuggerPath": "/Users/jensolegraulund/spiio/sensor/mac-build/gcc-arm-none-eabi-4_9-2015q3/bin/arm-none-eabi-gdb",
-                "debugServerPath": "/Users/jensolegraulund/Library/Python/2.7/lib/python/site-packages/pyOCD/gdbserver"
+                "MIDebuggerPath": "arm-none-eabi-gdb",
+                "debugServerPath": "pyocd-gdbserver"
             },
             "windows": {
                 "preLaunchTask": "make.exe",
