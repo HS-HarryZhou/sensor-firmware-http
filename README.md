@@ -36,6 +36,10 @@ Go to the new directory:
 
 `cd sensor-firmware-http`
 
+update libraries with:
+
+`mbed deploy`
+
 and then compile it:
 
 `mbed compile -t GCC_ARM -m ublox_c027 --source .`
