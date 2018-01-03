@@ -40,25 +40,14 @@ void dump_response(HttpResponse* res)
 }
 
 SPIIO::SpiioClient::SpiioClient(NetworkInterface* nw, const SPIIO::Config& config, const SPIIO::Device& device)
-    : _device(device)
-    , _config(config)
-    , _network(nw)
 {
-    // _network = easy_connect(true);
-}
-
-SPIIO::SpiioClient::~SpiioClient()
-{
-    // _network->disconnect();
+    _network = nw;
+    _config = config;
+    _device = device;
 }
 
 int SPIIO::SpiioClient::publish(SPIIO::MessageStore& store)
 {
-    // Check messages batch limit reached before publishing
-    // if (!store.DoPostReadings()) {
-    //     return SPIIO_SUCCESS;
-    // }
-
     // Renew token ?
     getToken();
     if (!token.isValid()) {

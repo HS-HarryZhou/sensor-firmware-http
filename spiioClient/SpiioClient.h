@@ -11,6 +11,7 @@
 #ifndef _SPIIOCLIENT_H_
 #define _SPIIOCLIENT_H_
 
+#include "NetworkInterface.h"
 #include "mbed.h"
 
 #include "SpiioCommon/Config.h"
@@ -38,14 +39,13 @@ typedef struct
 class SpiioClient {
 public:
     SpiioClient(NetworkInterface* nw, const SPIIO::Config& config, const SPIIO::Device& device);
-    ~SpiioClient();
     int publish(SPIIO::MessageStore& store);
 
 private:
     NetworkInterface* _network;
 
-    const SPIIO::Device _device;
-    const SPIIO::Config _config;
+    SPIIO::Device _device;
+    SPIIO::Config _config;
 
     void getToken();
 
